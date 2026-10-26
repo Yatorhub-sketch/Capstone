@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dynamic Student Portal – your one-stop hub for timetables, registration, and campus resources." />
+  <title>Dynamic Student Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🎓</span>
+        <span class="logo-text">Dynamic Student Portal</span>
+      </div>
+      <!-- Navigation (Lab 2 – links; Lab 6 – Flexbox layout applied via CSS) -->
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html" class="nav-link active" id="nav-home">Home</a></li>
+          <li><a href="timetable.html" class="nav-link" id="nav-timetable">Timetable</a></li>
+          <li><a href="register.html" class="nav-link" id="nav-register">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main>
+
+    <!-- Hero / Banner Section (Lab 2) -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-content">
+        <h1 id="hero-heading">Welcome to the Dynamic Student Portal</h1>
+        <p class="hero-subtitle">
+          Your one-stop hub for class timetables, student registration, and campus resources.
+          Stay organised, stay ahead.
+        </p>
+        <a href="register.html" class="btn btn-primary" id="cta-register">Get Started – Register Now</a>
+      </div>
+      <div class="hero-image-wrap">
+        <!-- Banner image (Lab 2 – <img> element with alt attribute) -->
+        <img
+          src="banner.jpg"
+          alt="Students studying together in a modern university library"
+          class="hero-img"
+          id="banner-image"
+        />
+      </div>
+    </section>
+
+    <!-- Portal Features Grid (Lab 6 – CSS Grid layout) -->
+    <section class="features" aria-labelledby="features-heading">
+      <h2 id="features-heading">What You Can Do Here</h2>
+      <div class="features-grid">
+        <article class="feature-card" id="feature-timetable">
+          <div class="feature-icon">📅</div>
+          <h3>View Timetable</h3>
+          <p>Browse the full weekly class schedule, time slots, and room assignments for every course.</p>
+          <a href="timetable.html" class="btn btn-secondary">Open Timetable</a>
+        </article>
+        <article class="feature-card" id="feature-register">
+          <div class="feature-icon">📝</div>
+          <h3>Student Registration</h3>
+          <p>New students can complete the online registration form and submit their details in minutes.</p>
+          <a href="register.html" class="btn btn-secondary">Register Now</a>
+        </article>
+        <article class="feature-card" id="feature-resources">
+          <div class="feature-icon">📚</div>
+          <h3>Campus Resources</h3>
+          <p>Access library materials, study guides, and academic support services all in one place.</p>
+          <a href="#" class="btn btn-secondary">Explore Resources</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Student List Section – prepared for Lab 8 JavaScript interaction -->
+    <section class="student-list-section" aria-labelledby="students-heading">
+      <h2 id="students-heading">Registered Students <span id="student-count"></span></h2>
+      <p>Click the button below to display the list of currently registered students.</p>
+      <button id="show-students-btn" class="btn btn-primary">Show Registered Students</button>
+      <ul id="student-list" aria-live="polite"></ul>
+    </section>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="copyright">&copy; 2026 Dynamic Student Portal. All rights reserved.</p>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="timetable.html">Timetable</a>
+        <a href="register.html">Register</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- External JavaScript (Lab 7+) -->
+  <script src="script.js"></script>
+
+</body>
+</html>

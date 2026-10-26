@@ -1,0 +1,764 @@
+/* ============================================================
+   styles.css  –  Dynamic Student Portal
+   Lab 5  : Base styles, typography, colours, form styling
+   Lab 6  : Box model, Flexbox nav, CSS Grid layout
+   ============================================================ */
+
+/* ──────────────────────────────────────────────────────────
+   0. GOOGLE FONTS IMPORT
+────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap');
+
+/* ──────────────────────────────────────────────────────────
+   1. CSS CUSTOM PROPERTIES (Design Tokens)
+   Lab 5 – central colour & type scale
+────────────────────────────────────────────────────────── */
+:root {
+  /* Colour palette */
+  --clr-primary:      #1a4f8a;   /* deep university blue  */
+  --clr-primary-dark: #0f3360;
+  --clr-accent:       #00bcd4;   /* teal accent           */
+  --clr-accent-dark:  #0097a7;
+  --clr-success:      #2e7d32;
+  --clr-danger:       #c62828;
+  --clr-warning:      #f57c00;
+
+  /* Neutrals */
+  --clr-bg:           #f4f6fb;
+  --clr-surface:      #ffffff;
+  --clr-border:       #d0d7e8;
+  --clr-text:         #1c2a3a;
+  --clr-text-muted:   #5a6a82;
+  --clr-text-light:   #8fa0b8;
+
+  /* Header */
+  --clr-header-bg:    #0f3360;
+  --clr-header-text:  #ffffff;
+
+  /* Typography */
+  --ff-body:    'Inter', system-ui, sans-serif;
+  --ff-heading: 'Poppins', 'Inter', system-ui, sans-serif;
+  --fs-sm:   0.875rem;   /* 14 px */
+  --fs-base: 1rem;       /* 16 px */
+  --fs-md:   1.125rem;   /* 18 px */
+  --fs-lg:   1.5rem;     /* 24 px */
+  --fs-xl:   2rem;       /* 32 px */
+  --fs-2xl:  2.75rem;    /* 44 px */
+
+  /* Spacing */
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2.5rem;
+  --space-2xl: 4rem;
+
+  /* Misc */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 1px 4px rgba(0,0,0,.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,.14);
+  --transition: 0.25s ease;
+}
+
+/* ──────────────────────────────────────────────────────────
+   2. CSS RESET / BASE
+   Lab 5 – base font-family, background colour
+────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--ff-body);
+  font-size: var(--fs-base);
+  color: var(--clr-text);
+  background-color: var(--clr-bg);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--clr-primary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+a:hover,
+a:focus-visible {
+  color: var(--clr-accent-dark);
+  text-decoration: underline;
+}
+
+/* Heading colours – Lab 5 requirement */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--ff-heading);
+  color: var(--clr-primary-dark);
+  line-height: 1.25;
+}
+h1 { font-size: var(--fs-2xl); }
+h2 { font-size: var(--fs-xl); }
+h3 { font-size: var(--fs-lg); }
+
+/* Accessibility helper */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ──────────────────────────────────────────────────────────
+   3. HEADER
+   Lab 6 – Flexbox navigation layout
+────────────────────────────────────────────────────────── */
+.site-header {
+  background-color: var(--clr-header-bg);
+  color: var(--clr-header-text);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow-md);
+}
+
+/* Lab 6 – Box model: padding on header-inner + display:flex */
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-xl);
+  /* Lab 6 – Flexbox: horizontal alignment of logo and nav */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  text-decoration: none;
+}
+.logo-icon { font-size: 1.75rem; }
+.logo-text {
+  font-family: var(--ff-heading);
+  font-size: var(--fs-md);
+  font-weight: 700;
+  color: var(--clr-header-text);
+  letter-spacing: -0.02em;
+}
+
+/* Lab 6 – Flexbox nav: horizontal link layout */
+.main-nav ul {
+  list-style: none;
+  display: flex;           /* Lab 6: display:flex makes links horizontal */
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.nav-link {
+  display: inline-block;
+  padding: var(--space-sm) var(--space-md);   /* Box model: padding */
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  font-size: var(--fs-sm);
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  transition: background-color var(--transition), color var(--transition);
+  text-decoration: none;
+}
+.nav-link:hover,
+.nav-link:focus-visible {
+  background-color: rgba(255,255,255,0.12);
+  color: #ffffff;
+  text-decoration: none;
+}
+.nav-link.active {
+  background-color: var(--clr-accent);
+  color: #ffffff;
+}
+
+/* ──────────────────────────────────────────────────────────
+   4. BUTTONS
+   Lab 5 – distinct background colour for submit button
+────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-lg);   /* Box model: padding */
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--ff-body);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+  text-decoration: none;
+}
+.btn:hover  { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.btn:active { transform: translateY(0);    box-shadow: none; }
+
+.btn-primary {
+  background-color: var(--clr-accent);   /* Lab 5: distinct background for submit btn */
+  color: #ffffff;
+}
+.btn-primary:hover { background-color: var(--clr-accent-dark); color: #ffffff; text-decoration: none; }
+
+.btn-secondary {
+  background-color: transparent;
+  border-color: var(--clr-primary);
+  color: var(--clr-primary);
+}
+.btn-secondary:hover { background-color: var(--clr-primary); color: #ffffff; text-decoration: none; }
+
+.btn-large { padding: var(--space-md) var(--space-xl); font-size: var(--fs-base); }
+
+/* ──────────────────────────────────────────────────────────
+   5. HERO SECTION  (index.html)
+   Lab 6 – CSS Grid two-column layout
+────────────────────────────────────────────────────────── */
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-xl);
+  /* Lab 6 – CSS Grid: responsive two-column layout */
+  display: grid;
+  grid-template-columns: 1fr 1fr;          /* two equal columns */
+  align-items: center;
+  gap: var(--space-2xl);
+}
+
+.hero-content { }
+
+.hero h1 {
+  font-size: var(--fs-2xl);
+  color: var(--clr-primary-dark);
+  margin-bottom: var(--space-md);
+  line-height: 1.15;
+}
+
+.hero-subtitle {
+  font-size: var(--fs-md);
+  color: var(--clr-text-muted);
+  margin-bottom: var(--space-xl);
+  max-width: 480px;
+}
+
+.hero-image-wrap {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.hero-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg);
+  transition: transform 0.4s ease;
+}
+.hero-img:hover { transform: scale(1.02); }
+
+/* ──────────────────────────────────────────────────────────
+   6. FEATURES SECTION  (index.html)
+   Lab 6 – CSS Grid three-column card layout
+────────────────────────────────────────────────────────── */
+.features {
+  background-color: var(--clr-surface);
+  padding: var(--space-2xl) var(--space-xl);
+}
+.features h2 {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+/* Lab 6 – CSS Grid: three-column card grid */
+.features-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);   /* three equal columns */
+  gap: var(--space-lg);
+}
+
+.feature-card {
+  background-color: var(--clr-bg);
+  border: 1px solid var(--clr-border);     /* Box model: border */
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);                /* Box model: padding */
+  text-align: center;
+  transition: box-shadow var(--transition), transform var(--transition);
+}
+.feature-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.feature-icon { font-size: 2.5rem; margin-bottom: var(--space-md); }
+.feature-card h3 { margin-bottom: var(--space-sm); color: var(--clr-primary); }
+.feature-card p  { color: var(--clr-text-muted); margin-bottom: var(--space-lg); font-size: var(--fs-sm); }
+
+/* ──────────────────────────────────────────────────────────
+   7. STUDENT LIST SECTION  (index.html, prepared for Lab 8)
+────────────────────────────────────────────────────────── */
+.student-list-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-xl);
+}
+.student-list-section h2 { margin-bottom: var(--space-md); }
+.student-list-section > p { color: var(--clr-text-muted); margin-bottom: var(--space-lg); }
+
+#student-list {
+  list-style: none;
+  margin-top: var(--space-lg);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-sm);
+}
+#student-list li {
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  font-size: var(--fs-sm);
+}
+
+/* ──────────────────────────────────────────────────────────
+   8. PAGE HERO  (timetable.html / register.html)
+────────────────────────────────────────────────────────── */
+.page-hero {
+  background: linear-gradient(135deg, var(--clr-primary-dark) 0%, var(--clr-primary) 60%, var(--clr-accent) 100%);
+  color: #ffffff;
+  text-align: center;
+  padding: var(--space-2xl) var(--space-xl);
+}
+.page-hero h1 { color: #ffffff; margin-bottom: var(--space-md); }
+.page-hero p  { color: rgba(255,255,255,0.85); max-width: 640px; margin: 0 auto; font-size: var(--fs-md); }
+
+.page-content { flex: 1; }
+
+.section-title {
+  font-size: var(--fs-xl);
+  color: var(--clr-primary-dark);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: 3px solid var(--clr-accent);  /* Box model: border */
+  display: inline-block;
+}
+
+/* ──────────────────────────────────────────────────────────
+   9. TIMETABLE TABLE  (timetable.html)
+   Lab 3 – correct table styling
+────────────────────────────────────────────────────────── */
+.timetable-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-xl);
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.timetable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--clr-surface);
+  font-size: var(--fs-sm);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.timetable caption {
+  font-family: var(--ff-heading);
+  font-size: var(--fs-md);
+  font-weight: 600;
+  color: var(--clr-primary-dark);
+  padding: var(--space-md);
+  text-align: left;
+  background-color: var(--clr-bg);
+  border-bottom: 2px solid var(--clr-border);
+}
+
+.timetable thead tr {
+  background: linear-gradient(90deg, var(--clr-primary-dark), var(--clr-primary));
+  color: #ffffff;
+}
+
+.timetable thead th {
+  padding: var(--space-md) var(--space-lg);    /* Box model: padding */
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: var(--fs-sm);
+}
+
+.timetable tbody tr:nth-child(even) {
+  background-color: #f0f4fb;
+}
+.timetable tbody tr:hover {
+  background-color: #e3ecf9;
+  transition: background-color var(--transition);
+}
+
+.timetable tbody th,
+.timetable tbody td {
+  padding: var(--space-md) var(--space-lg);    /* Box model: padding */
+  border: 1px solid var(--clr-border);         /* Box model: border */
+  vertical-align: top;
+  text-align: center;
+}
+
+.timetable tbody th {
+  background-color: var(--clr-primary);
+  color: #ffffff;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.course-name {
+  display: block;
+  font-weight: 600;
+  color: var(--clr-primary-dark);
+  margin-bottom: var(--space-xs);
+}
+.room {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--clr-text-muted);
+}
+
+.free-slot {
+  color: var(--clr-text-light);
+  font-style: italic;
+  font-size: 0.8rem;
+}
+
+/* ──────────────────────────────────────────────────────────
+   10. IFRAME / MAP SECTION  (timetable.html)
+────────────────────────────────────────────────────────── */
+.campus-map-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-xl) var(--space-2xl);
+}
+.campus-map-section > p {
+  color: var(--clr-text-muted);
+  margin-bottom: var(--space-lg);
+  font-size: var(--fs-sm);
+}
+
+.map-wrapper {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--clr-border);        /* Box model: border */
+}
+
+/* ──────────────────────────────────────────────────────────
+   11. REGISTRATION PAGE LAYOUT  (register.html)
+   Lab 6 – CSS Grid two-column: form + aside
+────────────────────────────────────────────────────────── */
+.register-layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-2xl) var(--space-xl);
+  /* Lab 6 – CSS Grid: form on left, info on right */
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+/* ──────────────────────────────────────────────────────────
+   12. REGISTRATION FORM STYLES
+   Lab 5 – padding, spacing, distinct button background
+────────────────────────────────────────────────────────── */
+.registration-form {
+  background-color: var(--clr-surface);
+  border: 1px solid var(--clr-border);        /* Box model: border */
+  border-radius: var(--radius-md);
+  padding: var(--space-2xl);                  /* Box model: padding */
+  box-shadow: var(--shadow-sm);
+}
+
+.form-instructions {
+  font-size: var(--fs-sm);
+  color: var(--clr-text-muted);
+  margin-bottom: var(--space-lg);
+}
+.form-instructions .required { color: var(--clr-danger); font-weight: 700; }
+
+/* Lab 5: spacing between fields */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);             /* Box model: margin between fields */
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--clr-text);
+}
+.required { color: var(--clr-danger); }
+
+/* Inputs, selects – Lab 5: styled form controls */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group select {
+  width: 100%;
+  padding: var(--space-sm) var(--space-md);   /* Box model: padding inside inputs */
+  border: 2px solid var(--clr-border);        /* Box model: border */
+  border-radius: var(--radius-sm);
+  font-family: var(--ff-body);
+  font-size: var(--fs-base);
+  color: var(--clr-text);
+  background-color: var(--clr-bg);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+
+/* Lab 5: inline style comparison note - one inline style exists on iframe in timetable.html */
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--clr-accent);
+  box-shadow: 0 0 0 3px rgba(0,188,212,0.15);
+}
+
+/* Fieldsets */
+.form-fieldset {
+  border: 2px solid var(--clr-border);        /* Box model: border on fieldset */
+  border-radius: var(--radius-sm);
+  padding: var(--space-md) var(--space-lg);   /* Box model: padding */
+  margin-bottom: var(--space-lg);             /* Box model: margin */
+}
+.form-fieldset legend {
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--clr-text);
+  padding: 0 var(--space-xs);
+}
+
+/* Radio & checkbox groups */
+.radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+.radio-label,
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+.radio-label input[type="radio"],
+.checkbox-label input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  cursor: pointer;
+  accent-color: var(--clr-accent);
+}
+
+/* Error messages */
+.field-error {
+  font-size: var(--fs-sm);
+  color: var(--clr-danger);
+  min-height: 1.2em;
+}
+
+/* Form actions row */
+.form-actions {
+  display: flex;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+  margin-top: var(--space-lg);
+}
+
+/* Success message */
+.form-success {
+  margin-top: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  background-color: #e8f5e9;
+  border: 1px solid #a5d6a7;
+  border-radius: var(--radius-sm);
+  color: var(--clr-success);
+  font-weight: 600;
+}
+.form-success[hidden] { display: none; }
+
+/* ──────────────────────────────────────────────────────────
+   13. INFO ASIDE  (register.html)
+────────────────────────────────────────────────────────── */
+.info-aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.info-aside section {
+  background-color: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Lab 4: unordered list styles */
+.requirements-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.requirements-list li {
+  padding-left: var(--space-lg);
+  position: relative;
+  font-size: var(--fs-sm);
+  color: var(--clr-text);
+}
+.requirements-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--clr-accent);
+  font-weight: 700;
+}
+
+/* Lab 4: ordered list styles */
+.steps-list {
+  padding-left: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+.steps-list li {
+  font-size: var(--fs-sm);
+  color: var(--clr-text);
+  padding-left: var(--space-sm);
+}
+.steps-list li::marker {
+  color: var(--clr-accent);
+  font-weight: 700;
+}
+
+/* ──────────────────────────────────────────────────────────
+   14. FORM SECTION WRAPPER  (register.html)
+────────────────────────────────────────────────────────── */
+.form-section .section-title { margin-bottom: var(--space-xl); }
+
+/* ──────────────────────────────────────────────────────────
+   15. FOOTER
+   Lab 6 – Flexbox footer layout
+────────────────────────────────────────────────────────── */
+.site-footer {
+  background-color: var(--clr-primary-dark);
+  color: rgba(255,255,255,0.8);
+  margin-top: auto;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl);
+  /* Lab 6 – Flexbox: space footer items apart */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+.copyright { font-size: var(--fs-sm); color: rgba(255,255,255,0.65); }
+.footer-nav { display: flex; gap: var(--space-lg); }
+.footer-nav a {
+  font-size: var(--fs-sm);
+  color: rgba(255,255,255,0.75);
+  transition: color var(--transition);
+  text-decoration: none;
+}
+.footer-nav a:hover { color: var(--clr-accent); text-decoration: none; }
+
+/* ──────────────────────────────────────────────────────────
+   16. RESPONSIVE DESIGN
+   Lab 6 – tested with DevTools device toolbar
+────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .hero-subtitle { max-width: 100%; }
+  .hero-image-wrap { order: -1; }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --fs-2xl: 2rem;
+    --fs-xl:  1.6rem;
+  }
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: var(--space-md);
+  }
+  .main-nav ul { flex-wrap: wrap; gap: var(--space-xs); }
+  .features-grid { grid-template-columns: 1fr; }
+  .register-layout { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .form-actions { flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding: var(--space-xl) var(--space-md); }
+  .features { padding: var(--space-xl) var(--space-md); }
+  .timetable-section,
+  .register-layout,
+  .campus-map-section,
+  .student-list-section { padding-left: var(--space-md); padding-right: var(--space-md); }
+  .timetable { font-size: 0.72rem; }
+  .timetable thead th,
+  .timetable tbody th,
+  .timetable tbody td { padding: var(--space-sm); }
+}
